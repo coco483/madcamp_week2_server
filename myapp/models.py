@@ -6,5 +6,6 @@ class TodoItem(models.Model):
     completed = models.BooleanField(default=False)
 
 class User(models.Model):
-    username = models.CharField(max_length=100)
+    id = models.CharField(primary_key=True, max_length=100)
     email = models.EmailField()
+    displayName = models.CharField(max_length=100)
