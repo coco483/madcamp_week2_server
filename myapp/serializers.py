@@ -4,7 +4,7 @@ from .models import TodoItem, User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'displayName']
+        fields = ['id', 'email', 'displayName', 'favorites']
 
 class TodoItemSerializer(serializers.ModelSerializer):
     class Meta:

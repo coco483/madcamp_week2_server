@@ -6,3 +6,4 @@ from .models import User
 
 admin.site.register(TodoItem)
 admin.site.register(User)
+
