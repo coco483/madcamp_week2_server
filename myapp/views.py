@@ -1,3 +1,5 @@
+# views.py
+
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -18,3 +20,11 @@ class TodoItemViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    @action(detail=True, methods=['put'])
+    def update_favorites(self, request, pk=None):
+        user = self.get_object()
+        favorites = request.data.get('favorites', [])  # Assuming 'favorites' is passed in request data
+        user.favorites = favorites
+        user.save()
+        return Response({'status': 'favorites updated successfully'})
