@@ -1,5 +1,3 @@
-# views.py
-
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -21,10 +19,11 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    @action(detail=True, methods=['put'])
+    @action(detail=True, methods=['put'], url_path='update-favorites')
     def update_favorites(self, request, pk=None):
         user = self.get_object()
-        favorites = request.data.get('favorites', [])  # Assuming 'favorites' is passed in request data
-        user.favorites = favorites
+        favorite_ids = request.data.get('favorites', [])  # Assuming the request data has 'favorites' list
+        user.favorites.set(favorite_ids)
         user.save()
-        return Response({'status': 'favorites updated successfully'})
+        serializer = self.get_serializer(user)
+        return Response(serializer.data)

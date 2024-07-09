@@ -10,6 +10,7 @@ class User(models.Model):
     email = models.EmailField()
     displayName = models.CharField(max_length=100)
     favorites = models.JSONField('json', default=str)
+    strategyList = models.JSONField('json', default=str)
 
     def __str__(self):
         return self.id
